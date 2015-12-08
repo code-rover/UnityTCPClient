@@ -17,7 +17,7 @@ namespace UNITY_TCPCLIENT
         {
             if (_instance == null)
             {
-                GameObject goNetworkManager = new GameObject();
+                GameObject goNetworkManager = new GameObject("NetworkManager");
                 _instance = goNetworkManager.AddComponent<NetworkManager>();
             }
 
@@ -45,7 +45,7 @@ namespace UNITY_TCPCLIENT
         {
             get { return mTCPState; }
         }
-        
+
         /// <summary>
         /// 호스트 세팅
         /// </summary>
@@ -117,6 +117,9 @@ namespace UNITY_TCPCLIENT
                     }
                     break;
 
+                default:
+                    return;
+
             }
 
             mNetworkState.Enter(this);
@@ -130,6 +133,7 @@ namespace UNITY_TCPCLIENT
         {
             mNetworkState.Send(packet);
         }
+
 
         #region CALLBACK
         /// <summary>
@@ -181,12 +185,18 @@ namespace UNITY_TCPCLIENT
             mReceiveEventCallback(packet);
         }
 
+        /// <summary>
+        /// Connect 이벤트 Fire
+        /// </summary>
         public void OnConnectEventFire()
         {
             if(mConnectCompleteEvent != null)
                 mConnectCompleteEvent();
         }
 
+        /// <summary>
+        /// Disconnect 이벤트 Fire
+        /// </summary>
         public void OnDisconnectEventFire()
         {
             if(mDisconnectedCompleteEvent != null)
@@ -196,7 +206,7 @@ namespace UNITY_TCPCLIENT
 
         private void Awake()
         {
-            SwitchStateHandle(TCPCommon.NETWORK_STATE.NONE);
+            Reset();
         }
 
         private void Update()

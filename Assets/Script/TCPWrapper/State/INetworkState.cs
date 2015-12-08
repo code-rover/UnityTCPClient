@@ -1,4 +1,5 @@
-﻿namespace UNITY_TCPCLIENT
+﻿
+namespace UNITY_TCPCLIENT
 {
     /// <summary>
     /// INetworkState

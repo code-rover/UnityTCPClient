@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace UNITY_TCPCLIENT
 {
@@ -39,7 +36,7 @@ namespace UNITY_TCPCLIENT
 
         public void Disconnect()
         {
-            
+
         }
 
         public void Reconnect()
@@ -53,5 +50,6 @@ namespace UNITY_TCPCLIENT
         public void Send(PacketStream packet)
         {
         }
+
     }
 }

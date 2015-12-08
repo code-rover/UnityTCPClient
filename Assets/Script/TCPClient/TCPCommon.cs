@@ -14,8 +14,6 @@
             NONE
         };
 
-
-
         public static readonly int SEND_BUFFERQUEUE_POWER = 10;
 
         public static readonly int RECV_BUFFERQUEUE_POWER = 10;

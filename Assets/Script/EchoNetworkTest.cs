@@ -22,7 +22,6 @@ public class EchoNetworkTest : MonoBehaviour {
         mNetworkManager = NetworkManager.getInstance();
         
         mNetworkManager.mReceiveEventCallback = TestRecv;
-
         mNetworkManager.mConnectCompleteEvent += () => { StateText.text = "Connect";  Debug.Log("Connect!"); };
         mNetworkManager.mDisconnectedCompleteEvent += () => { StateText.text = "Disconnect"; Debug.Log("Disconnect!"); };
         mNetworkManager.mConnectFailEvent += () => { StateText.text = "Connect Fail"; Debug.Log("Connect Fail!"); };
@@ -43,11 +42,6 @@ public class EchoNetworkTest : MonoBehaviour {
     {
         mNetworkManager.Disconnect();
     }
-
-    public void TestReset()
-    {
-    }
-
 
     public void TestSend()
     {
