@@ -1,7 +1,7 @@
 UNITY TCP Client
 =====
 
-This is Simple TCP Client For the Unity TCP Client, Written in C#.
+This is Simple TCP Client For the Unity, Written in C#.
 It's based on .NetSocket.
 This Project to Show how to using C# socket in unity.
 
