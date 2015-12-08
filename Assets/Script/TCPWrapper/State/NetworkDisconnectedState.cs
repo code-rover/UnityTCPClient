@@ -28,10 +28,9 @@ namespace UNITY_TCPCLIENT
 
         public void Enter(NetworkManager networkManager)
         {
-            mNetworkManager = networkManager;
+            this.mNetworkManager = networkManager;
 
-            if( mNetworkManager.disconnectedCompleteCallback != null )
-                mNetworkManager.disconnectedCompleteCallback();
+            mNetworkManager.OnDisconnectEventFire();
         }
 
         public void Connect(string host, int port, IProtocolResolver protocolResolver)

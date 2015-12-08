@@ -27,11 +27,11 @@ namespace UNITY_TCPCLIENT
         public delegate void NetworkEventCallback();
         public delegate void ReceiveEventCallback(PacketStream packetStream);
 
-        public NetworkEventCallback connectFailCallback { private get; set; }
-        public NetworkEventCallback reconnectFailCallback { private get; set; }
-        public NetworkEventCallback connectCompleteCallback {  get; set; }
-        public NetworkEventCallback disconnectedCompleteCallback {  get; set; }
-        public ReceiveEventCallback receiveEventCallback { private get; set; }
+        public event NetworkEventCallback mConnectFailEvent;
+        public event NetworkEventCallback mReconnectFailEvent;
+        public event NetworkEventCallback mConnectCompleteEvent;
+        public event NetworkEventCallback mDisconnectedCompleteEvent;
+        public ReceiveEventCallback mReceiveEventCallback;
 
         private INetworkState mNetworkState = null;
         private NetworkSyncQueue mNetworkSyncQueue = null;
@@ -97,7 +97,6 @@ namespace UNITY_TCPCLIENT
                 return;
 
             mTCPState = state;
-            Debug.Log("Network State Event : " + mTCPState);
             switch (mTCPState)
             {
                 case TCPCommon.NETWORK_STATE.CONNECT:
@@ -148,10 +147,9 @@ namespace UNITY_TCPCLIENT
         /// </summary>
         public void OnConnectFail()
         {
-            Debug.LogError("TCP Connect Fail");
-            if (connectFailCallback != null)
+            if (mConnectFailEvent != null)
             {
-                connectFailCallback();
+                mConnectFailEvent();
             }
         }
 
@@ -168,10 +166,9 @@ namespace UNITY_TCPCLIENT
         /// </summary>
         public void OnReconnectFail()
         {
-            Debug.LogError("TCP Reconnect Fail");
-            if (reconnectFailCallback != null)
+            if (mReconnectFailEvent != null)
             {
-                reconnectFailCallback();
+                mReconnectFailEvent();
             }
         }
 
@@ -181,7 +178,19 @@ namespace UNITY_TCPCLIENT
         /// <param name="bytes_packet">The bytes_packet.</param>
         private void OnReceive(PacketStream packet)
         {
-            receiveEventCallback(packet);
+            mReceiveEventCallback(packet);
+        }
+
+        public void OnConnectEventFire()
+        {
+            if(mConnectCompleteEvent != null)
+                mConnectCompleteEvent();
+        }
+
+        public void OnDisconnectEventFire()
+        {
+            if(mDisconnectedCompleteEvent != null)
+                mDisconnectedCompleteEvent();
         }
         #endregion
 
@@ -231,8 +240,6 @@ namespace UNITY_TCPCLIENT
                     OnReceive(packet);
                 }
             }
-
-
         }
 
         private void OnDestroy()

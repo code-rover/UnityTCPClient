@@ -12,10 +12,11 @@ namespace UNITY_TCPCLIENT
     /// </summary>
     public class NetworkNoneState : INetworkState
     {
-        private NetworkManager mNetworkManager = null;
+        private NetworkManager mNetworkManager;
+
         public void Enter(NetworkManager networkManager)
         {
-            mNetworkManager = networkManager;
+            this.mNetworkManager = networkManager;
         }
 
         public void Connect(string host, int port, IProtocolResolver protocolResolver)

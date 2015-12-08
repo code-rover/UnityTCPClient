@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System;
+using UnityEngine.UI;
 using UNITY_TCPCLIENT;
 
 /// <summary>
@@ -12,14 +13,20 @@ public class EchoNetworkTest : MonoBehaviour {
 
     public String IP = "127.0.0.1";
     public int PORT = 9001;
+    public Text StateText;
 
     private NetworkManager mNetworkManager;
-
+    
     void Start()
     {
         mNetworkManager = NetworkManager.getInstance();
         
-        mNetworkManager.receiveEventCallback = TestRecv;
+        mNetworkManager.mReceiveEventCallback = TestRecv;
+
+        mNetworkManager.mConnectCompleteEvent += () => { StateText.text = "Connect";  Debug.Log("Connect!"); };
+        mNetworkManager.mDisconnectedCompleteEvent += () => { StateText.text = "Disconnect"; Debug.Log("Disconnect!"); };
+        mNetworkManager.mConnectFailEvent += () => { StateText.text = "Connect Fail"; Debug.Log("Connect Fail!"); };
+        mNetworkManager.mReconnectFailEvent += () => { StateText.text = "Reconnect Fail"; Debug.Log("Reconnect Fail!"); };
     }
 
     public void TestConnect()
@@ -27,10 +34,20 @@ public class EchoNetworkTest : MonoBehaviour {
         mNetworkManager.Connect(IP, PORT, new BytesProtocolResolver());
     }
 
+    public void TestReconnect()
+    {
+        mNetworkManager.Reconnect();
+    }
+
     public void TestDisconnect()
     {
         mNetworkManager.Disconnect();
     }
+
+    public void TestReset()
+    {
+    }
+
 
     public void TestSend()
     {
@@ -64,7 +81,6 @@ public class EchoNetworkTest : MonoBehaviour {
             }
         }
     }
-
 
 
     private void TestRecv(PacketStream packet)

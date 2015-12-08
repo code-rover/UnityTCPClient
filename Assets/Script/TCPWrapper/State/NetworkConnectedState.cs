@@ -12,7 +12,6 @@ namespace UNITY_TCPCLIENT
     /// </summary>
     public class NetworkConnectedState : INetworkState
     {
-        private NetworkManager mNetworkManager = null;
         private IClientSession mClientSession = null;
 
         public NetworkConnectedState(IClientSession clientSession)
@@ -21,11 +20,8 @@ namespace UNITY_TCPCLIENT
         }
 
         public void Enter(NetworkManager networkManager)
-        {            
-            mNetworkManager = networkManager;
-
-            if( mNetworkManager.connectCompleteCallback != null )
-                mNetworkManager.connectCompleteCallback();
+        {
+            networkManager.OnConnectEventFire();
         }
 
         public void Connect(string host, int port, IProtocolResolver protocolResolver)
