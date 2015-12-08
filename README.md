@@ -1,10 +1,13 @@
 UNITY TCP Client
 =====
 
-Unity Tcp Client Framework
+This is Simple TCP Client For the Unity TCP Client, Written in C#.
+It's based on .NetSocket.
+This Project to Show how to using C# socket in unity.
 
 Features
 --------
 
-- 유니티용 TCP 클라이언트 프레임워크입니다.
-- 현재는 Binary(Bytes)패킷만 지원하며, Google Protobuf와 Json을 지원할 예정입니다.
+- This Project is Based on Async IO
+- Support Wait-Free Queue
+- It will support Google Protobuf and Json.
