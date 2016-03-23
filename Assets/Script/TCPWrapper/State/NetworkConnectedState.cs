@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace UNITY_TCPCLIENT
 {
     /// <summary>
@@ -22,7 +23,7 @@ namespace UNITY_TCPCLIENT
 
         public void Connect(string host, int port, IProtocolResolver protocolResolver)
         {
-            
+			Console.WriteLine ("none");
         }
 
         public void Disconnect()
