@@ -91,7 +91,7 @@ namespace UNITY_TCPCLIENT
         /// 만약 더 추가 될게 있으면 State패턴으로 변경
         /// </summary>
         /// <param name="state">The state.</param>
-        private void SwitchStateHandle(TCPCommon.NETWORK_STATE state)
+        public void SwitchStateHandle(TCPCommon.NETWORK_STATE state)
         {
             if (mTCPState == state)
                 return;
@@ -206,7 +206,7 @@ namespace UNITY_TCPCLIENT
 
         private void Awake()
         {
-            Reset();
+            //Reset();
         }
 
         private void Update()
