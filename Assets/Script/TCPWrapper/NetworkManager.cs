@@ -207,6 +207,7 @@ namespace UNITY_TCPCLIENT
         private void Awake()
         {
             //Reset();
+			SwitchStateHandle(TCPCommon.NETWORK_STATE.NONE);
         }
 
         private void Update()
