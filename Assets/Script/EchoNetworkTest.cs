@@ -30,8 +30,8 @@ public class EchoNetworkTest : MonoBehaviour {
 		Debug.Log ("main thread: " + System.Threading.Thread.CurrentThread.GetHashCode());
 
         mNetworkManager.mReceiveEventCallback = TestRecv;
-		mNetworkManager.mConnectCompleteEvent += () => { StateText.text = "Connect";  Debug.Log("Connect! " + System.Threading.Thread.CurrentThread.GetHashCode()); };
-		mNetworkManager.mDisconnectedCompleteEvent += () => { StateText.text = "Disconnect"; Debug.Log("Disconnect! " + System.Threading.Thread.CurrentThread.GetHashCode()); };
+		mNetworkManager.mConnectCompleteEvent += () => { text = "Connect";  Debug.Log("Connect! " + System.Threading.Thread.CurrentThread.GetHashCode()); };
+		mNetworkManager.mDisconnectedCompleteEvent += () => { text = "Disconnect"; Debug.Log("Disconnect! " + System.Threading.Thread.CurrentThread.GetHashCode()); };
 		mNetworkManager.mConnectFailEvent += () => { text = "Connect Failed"; Debug.Log("Connect Fail!" + System.Threading.Thread.CurrentThread.GetHashCode()); };
 		mNetworkManager.mReconnectFailEvent += () => { text = "Reconnect Fail"; Debug.Log("Reconnect Fail! " + System.Threading.Thread.CurrentThread.GetHashCode()); };
     
@@ -62,7 +62,7 @@ public class EchoNetworkTest : MonoBehaviour {
 		obj.account = "b";
 		obj.password = "bb";
 
-		int msgno = 10003;
+		int msgno = 10001;
 
 		PacketStream ps = ClientCommon.msgpack(msgno, obj);
 		mNetworkManager.Send(ps);
