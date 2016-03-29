@@ -18,6 +18,7 @@ public class EchoNetworkTest : MonoBehaviour {
 	//public int PORT = 9001;
     public int PORT = 8888;
     public Text StateText;
+	public Text Message;
 
 	private String text = "";
 
@@ -35,6 +36,18 @@ public class EchoNetworkTest : MonoBehaviour {
 		mNetworkManager.mConnectFailEvent += () => { text = "Connect Failed"; Debug.Log("Connect Fail!" + System.Threading.Thread.CurrentThread.GetHashCode()); };
 		mNetworkManager.mReconnectFailEvent += () => { text = "Reconnect Fail"; Debug.Log("Reconnect Fail! " + System.Threading.Thread.CurrentThread.GetHashCode()); };
     
+
+		Messenger.AddListener(10002.ToString(), (object obj) => {
+			login_message.CMsgAccountLoginResponse res = obj as login_message.CMsgAccountLoginResponse;
+			print("10002 res: " + res);
+			Message.text = "登陆请求回复  10002";
+		});
+
+		Messenger.AddListener(10004.ToString(), (object obj) => {
+			login_message.CMsgAccountRegistResponse res = obj as login_message.CMsgAccountRegistResponse;
+			print("10004 res: " + res);
+			Message.text = "10004";
+		});
 	}
 
 	void Update() {
@@ -75,10 +88,13 @@ public class EchoNetworkTest : MonoBehaviour {
 		int msgno;
 		object obj = ClientCommon.msgunpack (packet, out msgno);
 
-		Type t = MsgType.Instance ().getMsgType (msgno);
+		//Type t = MsgType.Instance ().getMsgType (msgno);
 
-		print(msgno);
-		print (obj);
+		//print(msgno);
+		//print (obj);
+
+		//Messenger.Broadcast<login_message.CMsgAccountLoginResponse>(msgno.ToString(), (login_message.CMsgAccountLoginResponse)obj);
+		Messenger.Broadcast(msgno.ToString(), obj);
 		//print (s);
     }
 

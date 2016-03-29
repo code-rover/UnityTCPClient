@@ -177,7 +177,8 @@ namespace UNITY_TCPCLIENT
             }
             else
             {
-                // 연결 끊김
+                // 连接断开
+				//this.Disconnect();
                 OnDisconnect();
             }
         }
