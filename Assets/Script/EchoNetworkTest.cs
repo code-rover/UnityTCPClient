@@ -56,6 +56,7 @@ public class EchoNetworkTest : MonoBehaviour {
 
     public void TestConnect()
     {
+		print("TestConnect");
         mNetworkManager.Connect(IP, PORT, new BytesProtocolResolver());
     }
 
@@ -69,13 +70,25 @@ public class EchoNetworkTest : MonoBehaviour {
         mNetworkManager.Disconnect();
     }
 
-	public void TestSend()
+	public void TestLogin()
 	{
 		CMsgAccountLoginRequest obj = new CMsgAccountLoginRequest();
 		obj.account = "b";
 		obj.password = "bb";
 
 		int msgno = 10001;
+
+		PacketStream ps = ClientCommon.msgpack(msgno, obj);
+		mNetworkManager.Send(ps);
+	}
+
+	public void TestRegister()
+	{
+		CMsgAccountRegistRequest obj = new CMsgAccountRegistRequest();
+		obj.account = "c";
+		obj.password = "cc";
+
+		int msgno = 10003;
 
 		PacketStream ps = ClientCommon.msgpack(msgno, obj);
 		mNetworkManager.Send(ps);
